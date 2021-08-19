@@ -3,5 +3,8 @@
     width: 560px;
     display: flex;
     flex-flow: wrap;
-    background-color: peachpuff;
+    div {
+        height: 70px;
+        width: 70px;
+    }
 }

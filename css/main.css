@@ -3,7 +3,10 @@
   width: 560px;
   display: flex;
   flex-flow: wrap;
-  background-color: peachpuff;
+}
+.grid div {
+  height: 70px;
+  width: 70px;
 }
 
 /*# sourceMappingURL=main.css.map */
