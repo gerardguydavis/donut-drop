@@ -1,0 +1,29 @@
+.score-display {
+    font-family: sans-serif;
+    text-align: center;
+    margin: 0 auto;
+    background-color: pink;
+    border: solid 3px blue;
+    border-radius: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 200px;
+    padding: 15px 0;
+    h3 {
+        width: 100%;
+        margin: 0;
+    }
+    h2 {
+        margin: 0;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .score-display{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    margin: initial;
+    }
+}

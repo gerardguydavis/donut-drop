@@ -88,7 +88,6 @@ function moveDown() {
             let randomColor = Math.floor(Math.random() * sweetsColors.length)
             squares[i].style.backgroundColor = sweetsColors[randomColor];
         }
-
     }
 }
 
