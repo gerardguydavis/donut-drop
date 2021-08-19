@@ -1,6 +1,7 @@
 const grid = document.querySelector('.grid');
 const width = 8;
 const squares = [];
+let score = 0;
 
 const sweetsColors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple']
 
@@ -72,3 +73,112 @@ function dragDrop() {
     this.style.backgroundColor = colorDragged;
     squares[squareIdDragged].style.backgroundColor = colorSwapped;
 }
+
+//Check matches
+
+//Check for row of three
+function checkRowForThree() {
+    for (i = 0; i < 61; i++) {
+        let rowOfThree = [i, i + 1, i + 2];
+        let decidedColor = squares[i].style.backgroundColor;
+        const isBlank = squares[i].style.backgroundColor === '';
+
+        const notValid = [6, 7, 14, 15, 22, 23, 30, 31, 38, 39, 46, 47, 54, 55]
+        if (notValid.includes(i)) continue;
+
+        if (rowOfThree.every(index => squares[index].style.backgroundColor === decidedColor && !isBlank)) {
+            score += 300;
+            rowOfThree.forEach(index => {
+                squares[index].style.backgroundColor = '';
+            })
+        }
+    }
+}
+
+//Check for column of three
+function checkColumnForThree() {
+    for (i = 0; i < 47; i++) {
+        let columnOfThree = [i, i + width, i + width * 2];
+        let decidedColor = squares[i].style.backgroundColor;
+        const isBlank = squares[i].style.backgroundColor === '';
+
+        if (columnOfThree.every(index => squares[index].style.backgroundColor === decidedColor && !isBlank)) {
+            score += 300;
+            columnOfThree.forEach(index => {
+                squares[index].style.backgroundColor = '';
+            })
+        }
+    }
+}
+
+//Check for row of four
+function checkRowForFour() {
+    for (i = 0; i < 60; i++) {
+        let rowOfFour = [i, i + 1, i + 2, i + 3];
+        let decidedColor = squares[i].style.backgroundColor;
+        const isBlank = squares[i].style.backgroundColor === '';
+
+        const notValid = [5, 6, 7, 13, 14, 15, 21, 22, 23, 29, 30, 31, 37, 38, 39, 45, 46, 47, 53, 54, 55]
+        if (notValid.includes(i)) continue;
+
+        if (rowOfFour.every(index => squares[index].style.backgroundColor === decidedColor && !isBlank)) {
+            score += 500;
+            rowOfFour.forEach(index => {
+                squares[index].style.backgroundColor = '';
+            })
+        }
+    }
+}
+
+//Check for column of four
+function checkColumnForFour() {
+    for (i = 0; i < 39; i++) {
+        let columnOfFour = [i, i + width, i + width * 2, i + width * 3];
+        let decidedColor = squares[i].style.backgroundColor;
+        const isBlank = squares[i].style.backgroundColor === '';
+
+        if (columnOfFour.every(index => squares[index].style.backgroundColor === decidedColor && !isBlank)) {
+            score += 500;
+            columnOfFour.forEach(index => {
+                squares[index].style.backgroundColor = '';
+            })
+        }
+    }
+}
+
+//Check for row of five
+function checkRowForFive() {
+    for (i = 0; i < 59; i++) {
+        let rowOfFive = [i, i + 1, i + 2, i + 3];
+        let decidedColor = squares[i].style.backgroundColor;
+        const isBlank = squares[i].style.backgroundColor === '';
+
+        const notValid = [4, 5, 6, 7, 12, 13, 14, 15, 20, 21, 22, 23, 28, 29, 30, 31, 36, 37, 38, 39, 44, 45, 46, 47, 52, 53, 54, 55]
+        if (notValid.includes(i)) continue;
+
+        if (rowOfFive.every(index => squares[index].style.backgroundColor === decidedColor && !isBlank)) {
+            score += 500;
+            rowOfFive.forEach(index => {
+                squares[index].style.backgroundColor = '';
+            })
+        }
+    }
+}
+
+//Check for column of five
+function checkColumnForFive() {
+    for (i = 0; i < 31; i++) {
+        let columnOfFive = [i, i + width, i + width * 2, i + width * 3, i + width * 4];
+        let decidedColor = squares[i].style.backgroundColor;
+        const isBlank = squares[i].style.backgroundColor === '';
+
+        if (columnOfFive.every(index => squares[index].style.backgroundColor === decidedColor && !isBlank)) {
+            score += 500;
+            columnOfFive.forEach(index => {
+                squares[index].style.backgroundColor = '';
+            })
+        }
+    }
+}
+
+window.setInterval(function () { checkRowForFive(), checkColumnForFive(), checkRowForFour(), checkColumnForFour(), checkRowForThree(), checkColumnForThree() }, 100);
