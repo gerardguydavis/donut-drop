@@ -3,6 +3,8 @@
     width: 576px;
     display: flex;
     flex-flow: wrap;
+    border: solid 2px #fff;
+    box-sizing: content-box;
     div {
         height: 70px;
         width: 70px;

@@ -47,8 +47,16 @@ function dragEnd() {
         squareIdDragged + width
     ]
     let validMove = validMoves.includes(squareIdSwapped);
+    const rowEnds = [7, 15, 23, 31, 39, 47, 55]
+    const rowStarts = [8, 16, 24, 32, 40, 48, 56]
 
-    if (squareIdSwapped && validMove) {
+    if (rowStarts.includes(squareIdDragged) && rowEnds.includes(squareIdSwapped)) {
+        squares[squareIdSwapped].style.backgroundColor = colorSwapped;
+        squares[squareIdDragged].style.backgroundColor = colorDragged;
+    } else if (rowEnds.includes(squareIdDragged) && rowStarts.includes(squareIdSwapped)) {
+        squares[squareIdSwapped].style.backgroundColor = colorSwapped;
+        squares[squareIdDragged].style.backgroundColor = colorDragged;
+    } else if (squareIdSwapped && validMove) {
         squareIdSwapped = null
     } else if (squareIdSwapped && !validMove) {
         squares[squareIdSwapped].style.backgroundColor = colorSwapped;
@@ -200,6 +208,18 @@ function checkColumnForFive() {
             columnOfFive.forEach(index => {
                 squares[index].style.backgroundColor = '';
             })
+        }
+    }
+}
+
+function fadeout() {
+    for (i = 0; i < 63; i++) {
+        if (squares[i].style.backgroundColor === '') {
+            squares[i].classList.add("fadeout");
+        } else if (squares[i].classList.contains("fadeout")) {
+            if (squares[i].style.backgroundColor !== '') {
+                squares[i].classList.remove("fadeout")
+            }
         }
     }
 }
