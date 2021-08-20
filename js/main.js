@@ -85,7 +85,7 @@ function dragDrop() {
 
 //Drop New Sweets
 function moveDown() {
-    for (i = 0; i < 55; i++) {
+    for (i = 0; i < 56; i++) {
         if (squares[i + width].style.backgroundColor === '') {
             squares[i + width].style.backgroundColor = squares[i].style.backgroundColor
             squares[i].style.backgroundColor = ''
@@ -123,7 +123,7 @@ function checkRowForThree() {
 
 //Check for column of three
 function checkColumnForThree() {
-    for (i = 0; i < 47; i++) {
+    for (i = 0; i < 48; i++) {
         let columnOfThree = [i, i + width, i + width * 2];
         let decidedColor = squares[i].style.backgroundColor;
         const isBlank = squares[i].style.backgroundColor === '';
@@ -160,7 +160,7 @@ function checkRowForFour() {
 
 //Check for column of four
 function checkColumnForFour() {
-    for (i = 0; i < 39; i++) {
+    for (i = 0; i < 40; i++) {
         let columnOfFour = [i, i + width, i + width * 2, i + width * 3];
         let decidedColor = squares[i].style.backgroundColor;
         const isBlank = squares[i].style.backgroundColor === '';
