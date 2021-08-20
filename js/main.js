@@ -103,7 +103,7 @@ function moveDown() {
 
 //Check for row of three
 function checkRowForThree() {
-    for (i = 0; i < 61; i++) {
+    for (i = 0; i < 62; i++) {
         let rowOfThree = [i, i + 1, i + 2];
         let decidedColor = squares[i].style.backgroundColor;
         const isBlank = squares[i].style.backgroundColor === '';
@@ -140,7 +140,7 @@ function checkColumnForThree() {
 
 //Check for row of four
 function checkRowForFour() {
-    for (i = 0; i < 60; i++) {
+    for (i = 0; i < 61; i++) {
         let rowOfFour = [i, i + 1, i + 2, i + 3];
         let decidedColor = squares[i].style.backgroundColor;
         const isBlank = squares[i].style.backgroundColor === '';
@@ -177,8 +177,8 @@ function checkColumnForFour() {
 
 //Check for row of five
 function checkRowForFive() {
-    for (i = 0; i < 59; i++) {
-        let rowOfFive = [i, i + 1, i + 2, i + 3];
+    for (i = 0; i < 60; i++) {
+        let rowOfFive = [i, i + 1, i + 2, i + 3, i + 4];
         let decidedColor = squares[i].style.backgroundColor;
         const isBlank = squares[i].style.backgroundColor === '';
 
@@ -197,7 +197,7 @@ function checkRowForFive() {
 
 //Check for column of five
 function checkColumnForFive() {
-    for (i = 0; i < 31; i++) {
+    for (i = 0; i < 32; i++) {
         let columnOfFive = [i, i + width, i + width * 2, i + width * 3, i + width * 4];
         let decidedColor = squares[i].style.backgroundColor;
         const isBlank = squares[i].style.backgroundColor === '';
