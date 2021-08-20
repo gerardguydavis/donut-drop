@@ -248,12 +248,16 @@ function countdown() {
 
     seconds = seconds < 10 ? '0' + seconds : seconds;
     timerDisplay.innerHTML = `${minutes}:${seconds}`;
+    if (isNaN(minutes)) {
+        timerDisplay.innerHTML = `2:00`;
+    }
     time--;
 }
 
 function timesUp() {
-    if (time <= 0) {
+    if (time < 1) {
         time = 0;
+        timerDisplay.innerHTML = `0:00`;
         if (startMenu.classList.contains("hide")) {
             startMenu.classList.remove("hide");
         }
@@ -267,8 +271,6 @@ function startGame() {
     replay = true;
     time = startingMinutes * 60;
     startMenu.classList.add("hide");
-    setInterval(countdown, 1000);
-    setInterval(timesUp, 1000);
     score = 0;
     scoreDisplay.innerHTML = score;
     for (let square of squares) {
@@ -279,6 +281,11 @@ function startGame() {
 startButton.addEventListener("click", function () {
     startGame();
 })
+
+setInterval(function () {
+    countdown(),
+        timesUp()
+}, 1000);
 
 window.setInterval(function () {
     moveDown(),
