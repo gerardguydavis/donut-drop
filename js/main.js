@@ -1,8 +1,10 @@
 const grid = document.querySelector('.grid');
 const scoreDisplay = document.getElementById('score');
+const highScoreDisplay = document.getElementById('highscore')
 const width = 8;
 const squares = [];
 let score = 0;
+let highScore = 10000;
 
 const sweetsColors = ['url(img/choco.png)', 'url(img/marble.png)', 'url(img/mint.png)', 'url(img/pink.png)', 'url(img/rainbow.png)', 'url(img/sprinkle.png)', 'url(img/yellow.png)']
 
@@ -224,6 +226,13 @@ function fadeout() {
     }
 }
 
+function checkHighScore() {
+    if (score > highScore) {
+        highScore = score;
+        highScoreDisplay.innerText = highScore;
+    }
+}
+
 window.setInterval(function () {
     moveDown(),
         checkRowForFive(),
@@ -231,6 +240,7 @@ window.setInterval(function () {
         checkRowForFour(),
         checkColumnForFour(),
         checkRowForThree(),
-        checkColumnForThree()
+        checkColumnForThree(),
+        checkHighScore()
 }
     , 100);
