@@ -9,6 +9,8 @@ const startButton = document.getElementById('start-button');
 const startMenu = document.getElementById('start-menu');
 let score = 0;
 let highScore = 10000;
+let replay = false;
+let time;
 
 const sweetsColors = ['url(img/choco.png)', 'url(img/marble.png)', 'url(img/mint.png)', 'url(img/pink.png)', 'url(img/rainbow.png)', 'url(img/sprinkle.png)', 'url(img/yellow.png)']
 
@@ -22,6 +24,9 @@ function createGrid() {
         square.style.background = sweetsColors[randomColor];
         grid.appendChild(square);
         squares.push(square);
+        for (let square of squares) {
+            square.classList.add("hide");
+        }
     }
 }
 
@@ -238,8 +243,8 @@ function checkHighScore() {
 }
 
 function countdown() {
-    const minutes = Math.floor(time / 60);
-    let seconds = time % 60;
+    const minutes = Math.floor((time - 1) / 60);
+    let seconds = (time - 1) % 60;
 
     seconds = seconds < 10 ? '0' + seconds : seconds;
     timerDisplay.innerHTML = `${minutes}:${seconds}`;
@@ -252,15 +257,23 @@ function timesUp() {
         if (startMenu.classList.contains("hide")) {
             startMenu.classList.remove("hide");
         }
+        for (let square of squares) {
+            square.classList.add("hide");
+        }
     }
 }
 
 function startGame() {
+    replay = true;
     time = startingMinutes * 60;
     startMenu.classList.add("hide");
-    setInterval(function () { countdown(), timesUp() }, 1000);
+    setInterval(countdown, 1000);
+    setInterval(timesUp, 1000);
     score = 0;
     scoreDisplay.innerHTML = score;
+    for (let square of squares) {
+        square.classList.remove("hide");
+    }
 }
 
 startButton.addEventListener("click", function () {
