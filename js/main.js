@@ -3,6 +3,10 @@ const scoreDisplay = document.getElementById('score');
 const highScoreDisplay = document.getElementById('highscore')
 const width = 8;
 const squares = [];
+const startingMinutes = 2;
+const timerDisplay = document.getElementById('timer');
+const startButton = document.getElementById('start-button');
+const startMenu = document.getElementById('start-menu');
 let score = 0;
 let highScore = 10000;
 
@@ -232,6 +236,36 @@ function checkHighScore() {
         highScoreDisplay.innerText = highScore;
     }
 }
+
+function countdown() {
+    const minutes = Math.floor(time / 60);
+    let seconds = time % 60;
+
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+    timerDisplay.innerHTML = `${minutes}:${seconds}`;
+    time--;
+}
+
+function timesUp() {
+    if (time <= 0) {
+        time = 0;
+        if (startMenu.classList.contains("hide")) {
+            startMenu.classList.remove("hide");
+        }
+    }
+}
+
+function startGame() {
+    time = startingMinutes * 60;
+    startMenu.classList.add("hide");
+    setInterval(function () { countdown(), timesUp() }, 1000);
+    score = 0;
+    scoreDisplay.innerHTML = score;
+}
+
+startButton.addEventListener("click", function () {
+    startGame();
+})
 
 window.setInterval(function () {
     moveDown(),
