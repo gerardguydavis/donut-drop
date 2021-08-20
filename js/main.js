@@ -7,6 +7,7 @@ const startingMinutes = 2;
 const timerDisplay = document.getElementById('timer');
 const startButton = document.getElementById('start-button');
 const startMenu = document.getElementById('start-menu');
+const startMessage = document.getElementById('start-message');
 let score = 0;
 let highScore = 10000;
 let replay = false;
@@ -223,18 +224,6 @@ function checkColumnForFive() {
     }
 }
 
-function fadeout() {
-    for (i = 0; i < 63; i++) {
-        if (squares[i].style.background === '') {
-            squares[i].classList.add("fadeout");
-        } else if (squares[i].classList.contains("fadeout")) {
-            if (squares[i].style.background !== '') {
-                squares[i].classList.remove("fadeout")
-            }
-        }
-    }
-}
-
 function checkHighScore() {
     if (score > highScore) {
         highScore = score;
@@ -258,21 +247,36 @@ function timesUp() {
     if (time < 1) {
         time = 0;
         timerDisplay.innerHTML = `0:00`;
+        if (replay === true) {
+            startMessage.innerText = `Play Again?`;
+        }
         if (startMenu.classList.contains("hide")) {
             startMenu.classList.remove("hide");
         }
         for (let square of squares) {
-            square.classList.add("hide");
+            if (!square.classList.contains("hide")) {
+                square.classList.add("hide");
+                console.log("boop")
+            }
         }
+    }
+}
+
+function randomize() {
+    for (let square of squares) {
+        let randomColor = Math.floor(Math.random() * sweetsColors.length)
+        square.style.background = sweetsColors[randomColor];
     }
 }
 
 function startGame() {
     replay = true;
+    randomize();
     time = startingMinutes * 60;
     startMenu.classList.add("hide");
     score = 0;
     scoreDisplay.innerHTML = score;
+    scoreDisplay.classList.remove("hide");
     for (let square of squares) {
         square.classList.remove("hide");
     }
