@@ -3,7 +3,7 @@ const scoreDisplay = document.getElementById('score');
 const highScoreDisplay = document.getElementById('highscore')
 const width = 8;
 const squares = [];
-const startingMinutes = .1;
+const startingMinutes = 2;
 const timer = document.getElementById('timer');
 const timerDisplay = document.getElementById('timer-display');
 const startButton = document.getElementById('start-button');
@@ -63,6 +63,10 @@ function dragEnd() {
     let validMove = validMoves.includes(squareIdSwapped);
     const rowEnds = [7, 15, 23, 31, 39, 47, 55]
     const rowStarts = [8, 16, 24, 32, 40, 48, 56]
+    const columnEnds = [56, 57, 58, 59, 60, 61, 62, 63]
+    const columnStarts = [0, 1, 2, 3, 4, 5, 6, 7]
+    const column2Ends = [48, 49, 50, 51, 52, 53, 54, 55]
+    const column2Starts = [8, 9, 10, 11, 12, 13, 14, 15]
 
     if (rowStarts.includes(squareIdDragged) && rowEnds.includes(squareIdSwapped)) {
         squares[squareIdSwapped].style.background = colorSwapped;
@@ -77,12 +81,44 @@ function dragEnd() {
             squareIdSwapped = null
         } else if (squares[squareIdSwapped].style.background === squares[squareIdSwapped - 1].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped - 2].style.background) {
             squareIdSwapped = null
-        } else if (squares[squareIdSwapped] <= 47 && squares[squareIdSwapped].style.background === squares[squareIdSwapped + width].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped + width * 2].style.background) {
-            squareIdSwapped = null
-        } else if (squares[squareIdSwapped] >= 7 && squares[squareIdSwapped] <= 56 && squares[squareIdSwapped].style.background === squares[squareIdSwapped - width].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped + width].style.background) {
-            squareIdSwapped = null
-        } else if (squares[squareIdSwapped] >= 15 && squares[squareIdSwapped].style.background === squares[squareIdSwapped - width].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped - width * 2].style.background) {
-            squareIdSwapped = null
+        } else if (columnEnds.includes(squareIdSwapped)) {
+            if (squares[squareIdSwapped].style.background === squares[squareIdSwapped - width].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped - width * 2].style.background) {
+                squareIdSwapped = null;
+            } else {
+                squares[squareIdSwapped].style.background = colorSwapped;
+                squares[squareIdDragged].style.background = colorDragged;
+            }
+        } else if (columnStarts.includes(squareIdSwapped)) {
+            if (squares[squareIdSwapped].style.background === squares[squareIdSwapped + width].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped + width * 2].style.background) {
+                squareIdSwapped = null;
+            } else {
+                squares[squareIdSwapped].style.background = colorSwapped;
+                squares[squareIdDragged].style.background = colorDragged;
+            }
+        } else if (column2Ends.includes(squareIdSwapped)) {
+            if (squares[squareIdSwapped].style.background === squares[squareIdSwapped - width].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped - width * 2].style.background) {
+                squareIdSwapped = null;
+            } else if (squares[squareIdSwapped].style.background === squares[squareIdSwapped - width].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped + width].style.background) {
+                squareIdSwapped = null;
+            } else {
+                squares[squareIdSwapped].style.background = colorSwapped;
+                squares[squareIdDragged].style.background = colorDragged;
+            }
+        } else if (column2Starts.includes(squareIdSwapped)) {
+            if (squares[squareIdSwapped].style.background === squares[squareIdSwapped + width].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped + width * 2].style.background) {
+                squareIdSwapped = null;
+            } else if (squares[squareIdSwapped].style.background === squares[squareIdSwapped - width].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped + width].style.background) {
+                squareIdSwapped = null;
+            } else {
+                squares[squareIdSwapped].style.background = colorSwapped;
+                squares[squareIdDragged].style.background = colorDragged;
+            }
+        } else if (squares[squareIdSwapped].style.background === squares[squareIdSwapped + width].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped + width * 2].style.background) {
+            squareIdSwapped = null;
+        } else if (squares[squareIdSwapped].style.background === squares[squareIdSwapped - width].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped + width].style.background) {
+            squareIdSwapped = null;
+        } else if (squares[squareIdSwapped].style.background === squares[squareIdSwapped - width].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped - width * 2].style.background) {
+            squareIdSwapped = null;
         } else {
             squares[squareIdSwapped].style.background = colorSwapped;
             squares[squareIdDragged].style.background = colorDragged;
