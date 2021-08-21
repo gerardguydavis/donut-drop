@@ -1,3 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
+body {
+  overflow-y: hidden;
+}
+
 .grid {
   height: 576px;
   width: 576px;
@@ -46,8 +51,87 @@
     margin: initial;
   }
 }
+#start-menu {
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 400px;
+  background-color: #fff;
+  border: solid 5px hotpink;
+  border-radius: 20px;
+  z-index: 10;
+}
+#start-menu #start-wrapper {
+  padding: 50px;
+}
+#start-menu h2, #start-menu button {
+  font-family: "Fredoka One", sans-serif;
+  font-size: 2em;
+  text-transform: uppercase;
+}
+#start-menu button {
+  background-color: yellow;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: solid 7px darkgoldenrod;
+  padding: 20px 50px;
+  border-radius: 30px;
+}
+#start-menu button:hover {
+  background-color: gold;
+  cursor: pointer;
+  transition: 0.1s;
+}
+#start-menu button:active {
+  background-color: teal;
+  border-bottom: solid 2px darkgoldenrod;
+  margin-top: 5px;
+  transition: 0.2s;
+}
+#start-menu #start-desc span {
+  font-family: "Fredoka One", sans-serif;
+  font-size: 3em;
+}
+
 .hide {
   display: none;
+}
+
+.start {
+  top: 50%;
+}
+
+.slideout {
+  animation: slide-down 0.5s ease-out;
+  top: 150%;
+}
+
+.slidein {
+  animation: slide-up 0.25s ease-in;
+  top: 50%;
+}
+
+@keyframes slide-down {
+  from {
+    top: 50%;
+    opacity: 1;
+  }
+  to {
+    top: 150%;
+    opacity: 0;
+  }
+}
+@keyframes slide-up {
+  from {
+    top: 150%;
+    opacity: 0;
+  }
+  to {
+    top: 50%;
+    opacity: 1;
+  }
 }
 
 /*# sourceMappingURL=main.css.map */

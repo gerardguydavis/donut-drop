@@ -8,6 +8,7 @@ const timerDisplay = document.getElementById('timer');
 const startButton = document.getElementById('start-button');
 const startMenu = document.getElementById('start-menu');
 const startMessage = document.getElementById('start-message');
+const startDesc = document.getElementById('start-desc');
 let score = 0;
 let highScore = 10000;
 let replay = false;
@@ -99,7 +100,9 @@ function dragDrop() {
 function moveDown() {
     for (i = 0; i < 56; i++) {
         if (squares[i + width].style.background === '') {
+            let id = null;
             squares[i + width].style.background = squares[i].style.background
+            squares[i + width].style.top = '70px';
             squares[i].style.background = ''
         }
         const firstRow = [0, 1, 2, 3, 4, 5, 6, 7]
@@ -249,14 +252,15 @@ function timesUp() {
         timerDisplay.innerHTML = `0:00`;
         if (replay === true) {
             startMessage.innerText = `Play Again?`;
+            startDesc.innerHTML = `Your score was</br><span>${score}</span>`;
         }
-        if (startMenu.classList.contains("hide")) {
-            startMenu.classList.remove("hide");
+        if (startMenu.classList.contains("slideout")) {
+            startMenu.classList.remove("slideout");
+            startMenu.classList.add("slidein");
         }
         for (let square of squares) {
             if (!square.classList.contains("hide")) {
                 square.classList.add("hide");
-                console.log("boop")
             }
         }
     }
@@ -273,7 +277,13 @@ function startGame() {
     replay = true;
     randomize();
     time = startingMinutes * 60;
-    startMenu.classList.add("hide");
+    startMenu.classList.add("slideout");
+    if (startMenu.classList.contains("start")) {
+        startMenu.classList.remove("start");
+    }
+    if (startMenu.classList.contains("slidein")) {
+        startMenu.classList.remove("slidein");
+    }
     score = 0;
     scoreDisplay.innerHTML = score;
     scoreDisplay.classList.remove("hide");
