@@ -4,7 +4,8 @@ const highScoreDisplay = document.getElementById('highscore')
 const width = 8;
 const squares = [];
 const startingMinutes = 2;
-const timerDisplay = document.getElementById('timer');
+const timer = document.getElementById('timer');
+const timerDisplay = document.getElementById('timer-display');
 const startButton = document.getElementById('start-button');
 const startMenu = document.getElementById('start-menu');
 const startMessage = document.getElementById('start-message');
@@ -239,9 +240,9 @@ function countdown() {
     let seconds = (time - 1) % 60;
 
     seconds = seconds < 10 ? '0' + seconds : seconds;
-    timerDisplay.innerHTML = `${minutes}:${seconds}`;
+    timer.innerHTML = `${minutes}:${seconds}`;
     if (isNaN(minutes)) {
-        timerDisplay.innerHTML = `2:00`;
+        timer.innerHTML = `2:00`;
     }
     time--;
 }
@@ -249,7 +250,7 @@ function countdown() {
 function timesUp() {
     if (time < 1) {
         time = 0;
-        timerDisplay.innerHTML = `0:00`;
+        timer.innerHTML = `0:00`;
         if (replay === true) {
             startMessage.innerText = `Play Again?`;
             startDesc.innerHTML = `Your score was</br><span>${score}</span>`;
@@ -276,6 +277,7 @@ function randomize() {
 function startGame() {
     replay = true;
     randomize();
+    timerDisplay.classList.remove("hide");
     time = startingMinutes * 60;
     startMenu.classList.add("slideout");
     if (startMenu.classList.contains("start")) {
@@ -295,6 +297,8 @@ function startGame() {
 startButton.addEventListener("click", function () {
     startGame();
 })
+
+
 
 setInterval(function () {
     countdown(),

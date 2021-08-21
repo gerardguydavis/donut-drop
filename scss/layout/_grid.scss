@@ -1,18 +1,17 @@
 .grid {
-    height: 576px;
-    width: 576px;
+    height: 736px;
+    width: 736px;
+    min-height: 736px;
+    min-width: 736px;
     display: flex;
     flex-flow: wrap;
-    border: solid 2px #fff;
+    border: solid 8px hotpink;
     box-sizing: content-box;
     div {
-        height: 70px;
-        width: 70px;
+        height: 90px;
+        width: 90px;
     }
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translateX(-50%) translateY(-50%);
     padding: 50px;
-    background-color: rgba(50, 50, 50, .3)
+    background-color: rgba(100, 30, 50, .5);
+    border-radius: 40px;
 }

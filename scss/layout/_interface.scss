@@ -1,0 +1,53 @@
+#time-and-score {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin : {
+        right: 30px;
+    };
+}
+
+#score-display,
+#timer-display {
+    font-family: sans-serif;
+    text-align: center;
+    margin: 10px auto;
+    background-color: pink;
+    border: solid 3px blue;
+    border-radius: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 200px;
+    padding: 15px 0;
+    h3 {
+        width: 100%;
+        margin: 0;
+    }
+    h2 {
+        margin: 0;
+    }
+}
+
+#highscore-display {
+    text-align: center;
+    width: 200px;
+    background-color: pink;
+    border: solid 3px blue;
+    border-radius: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin : {
+        left: 30px;
+    }
+    padding: 15px;
+    h3 {
+        width: 100%;
+        margin: 0;
+    }
+    h2 {
+        margin: 0;
+    }
+}
