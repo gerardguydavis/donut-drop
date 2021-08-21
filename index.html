@@ -13,30 +13,33 @@
 </head>
 
 <body>
+    <h1>Donut Drop</h1>
     <div id="start-menu" class="start">
         <div id="start-wrapper">
             <h2 id="start-message">Ready?</h2>
-            <p id="start-desc">Swap the donuts to match 3 or more. Match as you can within the time
+            <p id="start-desc">Click and drag to swap the donuts and match 3 or more. Match as you can within the time
                 limit!</p>
             <button id="start-button">Start</button>
         </div>
     </div>
-    <div id="time-and-score">
-        <div id="timer-display" class="hide">
-            <h3>Time</h3>
-            <h2 id="timer">2:00</h2>
+    <div id="gameboard-wrap">
+        <div id="time-and-score">
+            <div id="timer-display" class="hide">
+                <h3>Time</h3>
+                <h2 id="timer">2:00</h2>
+            </div>
+            <div id="score-display">
+                <h3>Score</h3>
+                <h2 id="score">0</h2>
+            </div>
         </div>
-        <div id="score-display">
-            <h3>Score</h3>
-            <h2 id="score" class="hide"></h2>
+
+        <div class="grid"></div>
+
+        <div id="highscore-display">
+            <h3>High Score</h3>
+            <h2 id="highscore">10000</h2>
         </div>
-    </div>
-
-    <div class="grid"></div>
-
-    <div id="highscore-display">
-        <h2>High Score</h2>
-        <h3 id="highscore">10000</h3>
     </div>
 
     <script src="js/main.js" charset="utf-8"></script>

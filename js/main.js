@@ -3,7 +3,7 @@ const scoreDisplay = document.getElementById('score');
 const highScoreDisplay = document.getElementById('highscore')
 const width = 8;
 const squares = [];
-const startingMinutes = 2;
+const startingMinutes = .1;
 const timer = document.getElementById('timer');
 const timerDisplay = document.getElementById('timer-display');
 const startButton = document.getElementById('start-button');
@@ -71,7 +71,22 @@ function dragEnd() {
         squares[squareIdSwapped].style.background = colorSwapped;
         squares[squareIdDragged].style.background = colorDragged;
     } else if (squareIdSwapped && validMove) {
-        squareIdSwapped = null
+        if (squares[squareIdSwapped].style.background === squares[squareIdSwapped + 1].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped + 2].style.background) {
+            squareIdSwapped = null
+        } else if (squares[squareIdSwapped].style.background === squares[squareIdSwapped - 1].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped + 1].style.background) {
+            squareIdSwapped = null
+        } else if (squares[squareIdSwapped].style.background === squares[squareIdSwapped - 1].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped - 2].style.background) {
+            squareIdSwapped = null
+        } else if (squares[squareIdSwapped] <= 47 && squares[squareIdSwapped].style.background === squares[squareIdSwapped + width].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped + width * 2].style.background) {
+            squareIdSwapped = null
+        } else if (squares[squareIdSwapped] >= 7 && squares[squareIdSwapped] <= 56 && squares[squareIdSwapped].style.background === squares[squareIdSwapped - width].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped + width].style.background) {
+            squareIdSwapped = null
+        } else if (squares[squareIdSwapped] >= 15 && squares[squareIdSwapped].style.background === squares[squareIdSwapped - width].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped - width * 2].style.background) {
+            squareIdSwapped = null
+        } else {
+            squares[squareIdSwapped].style.background = colorSwapped;
+            squares[squareIdDragged].style.background = colorDragged;
+        }
     } else if (squareIdSwapped && !validMove) {
         squares[squareIdSwapped].style.background = colorSwapped;
         squares[squareIdDragged].style.background = colorDragged;
@@ -128,8 +143,10 @@ function checkRowForThree() {
         if (notValid.includes(i)) continue;
 
         if (rowOfThree.every(index => squares[index].style.background === decidedColor && !isBlank)) {
-            score += 300;
-            scoreDisplay.innerHTML = score;
+            if (replay === true) {
+                score += 300;
+                scoreDisplay.innerHTML = score;
+            }
             rowOfThree.forEach(index => {
                 squares[index].style.background = '';
             })
@@ -145,8 +162,10 @@ function checkColumnForThree() {
         const isBlank = squares[i].style.background === '';
 
         if (columnOfThree.every(index => squares[index].style.background === decidedColor && !isBlank)) {
-            score += 300;
-            scoreDisplay.innerHTML = score;
+            if (replay === true) {
+                score += 300;
+                scoreDisplay.innerHTML = score;
+            }
             columnOfThree.forEach(index => {
                 squares[index].style.background = '';
             })
@@ -165,8 +184,10 @@ function checkRowForFour() {
         if (notValid.includes(i)) continue;
 
         if (rowOfFour.every(index => squares[index].style.background === decidedColor && !isBlank)) {
-            score += 500;
-            scoreDisplay.innerHTML = score;
+            if (replay === true) {
+                score += 500;
+                scoreDisplay.innerHTML = score;
+            }
             rowOfFour.forEach(index => {
                 squares[index].style.background = '';
             })
@@ -182,8 +203,10 @@ function checkColumnForFour() {
         const isBlank = squares[i].style.background === '';
 
         if (columnOfFour.every(index => squares[index].style.background === decidedColor && !isBlank)) {
-            score += 500;
-            scoreDisplay.innerHTML = score;
+            if (replay === true) {
+                score += 500;
+                scoreDisplay.innerHTML = score;
+            }
             columnOfFour.forEach(index => {
                 squares[index].style.background = '';
             })
@@ -202,8 +225,10 @@ function checkRowForFive() {
         if (notValid.includes(i)) continue;
 
         if (rowOfFive.every(index => squares[index].style.background === decidedColor && !isBlank)) {
-            score += 1000;
-            scoreDisplay.innerHTML = score;
+            if (replay === true) {
+                score += 1000;
+                scoreDisplay.innerHTML = score;
+            }
             rowOfFive.forEach(index => {
                 squares[index].style.background = '';
             })
@@ -219,8 +244,10 @@ function checkColumnForFive() {
         const isBlank = squares[i].style.background === '';
 
         if (columnOfFive.every(index => squares[index].style.background === decidedColor && !isBlank)) {
-            score += 1000;
-            scoreDisplay.innerHTML = score;
+            if (replay === true) {
+                score += 1000;
+                scoreDisplay.innerHTML = score;
+            }
             columnOfFive.forEach(index => {
                 squares[index].style.background = '';
             })
@@ -253,7 +280,7 @@ function timesUp() {
         timer.innerHTML = `0:00`;
         if (replay === true) {
             startMessage.innerText = `Play Again?`;
-            startDesc.innerHTML = `Your score was</br><span>${score}</span>`;
+            startDesc.innerHTML = `Your final score was</br><span>${score}</span>`;
         }
         if (startMenu.classList.contains("slideout")) {
             startMenu.classList.remove("slideout");
@@ -288,7 +315,6 @@ function startGame() {
     }
     score = 0;
     scoreDisplay.innerHTML = score;
-    scoreDisplay.classList.remove("hide");
     for (let square of squares) {
         square.classList.remove("hide");
     }

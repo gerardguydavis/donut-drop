@@ -1,53 +1,44 @@
+h1 {
+    @extend .heading;
+    text-align: center;
+    margin : {
+        top: 0;
+        bottom: -10px;
+    }
+    color: hotpink;
+    font-size: 2.5em;
+    background-color: #fff;
+    border-radius: 50%;
+    padding: 20px 10px;
+    width: 250px;
+    border: solid 5px hotpink;
+}
+
+#gameboard-wrap {
+    flex-basis: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
 #time-and-score {
     display: flex;
     flex-flow: column;
     justify-content: center;
     align-items: flex-start;
-    margin : {
-        right: 30px;
-    };
+    margin-top: 15px;
 }
 
 #score-display,
-#timer-display {
-    font-family: sans-serif;
-    text-align: center;
-    margin: 10px auto;
-    background-color: pink;
-    border: solid 3px blue;
-    border-radius: 10px;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    width: 200px;
-    padding: 15px 0;
-    h3 {
-        width: 100%;
-        margin: 0;
-    }
-    h2 {
-        margin: 0;
-    }
+#timer-display,
+#highscore-display {
+    @extend .scorebox;
 }
 
 #highscore-display {
-    text-align: center;
-    width: 200px;
-    background-color: pink;
-    border: solid 3px blue;
-    border-radius: 10px;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    margin : {
-        left: 30px;
-    }
-    padding: 15px;
-    h3 {
-        width: 100%;
-        margin: 0;
-    }
+    margin-top: 15px;
     h2 {
-        margin: 0;
+        color: gold;
     }
 }

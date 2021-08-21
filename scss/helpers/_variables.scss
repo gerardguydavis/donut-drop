@@ -1,3 +1,39 @@
+.heading {
+    font-family: "Cherry Swash", cursive;
+}
+
+.scores {
+    font-family: "Fredoka One", sans-serif;
+}
+
+.scorebox {
+    width: 200px;
+    background-color:#fff;;
+    border:solid 5px hotpink;
+    border-radius: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    text-align: center;
+    padding: 15px 0;
+    margin-bottom: 15px;
+    h3 {
+        font: {
+            family: "Cherry Swash", cursive;
+            size: 1.5em;
+        }
+        width: 100%;
+        margin: 0;
+    }
+    h2 {
+        font : {
+            family: "Fredoka One", sans-serif;
+            size: 2em;
+        }
+        margin: 0;
+    }
+}
+
 .hide {
     display: none;
 }
