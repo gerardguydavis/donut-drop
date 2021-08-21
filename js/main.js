@@ -10,6 +10,7 @@ const startButton = document.getElementById('start-button');
 const startMenu = document.getElementById('start-menu');
 const startMessage = document.getElementById('start-message');
 const startDesc = document.getElementById('start-desc');
+const announceHighScore = document.getElementById('announce-high-score')
 let score = 0;
 let highScore = 10000;
 let replay = false;
@@ -61,8 +62,8 @@ function dragEnd() {
         squareIdDragged + width
     ]
     let validMove = validMoves.includes(squareIdSwapped);
-    const rowEnds = [7, 15, 23, 31, 39, 47, 55]
-    const rowStarts = [8, 16, 24, 32, 40, 48, 56]
+    const rowEnds = [7, 15, 23, 31, 39, 47, 55, 63]
+    const rowStarts = [0, 8, 16, 24, 32, 40, 48, 56]
     const columnEnds = [56, 57, 58, 59, 60, 61, 62, 63]
     const columnStarts = [0, 1, 2, 3, 4, 5, 6, 7]
     const column2Ends = [48, 49, 50, 51, 52, 53, 54, 55]
@@ -75,7 +76,27 @@ function dragEnd() {
         squares[squareIdSwapped].style.background = colorSwapped;
         squares[squareIdDragged].style.background = colorDragged;
     } else if (squareIdSwapped && validMove) {
-        if (squares[squareIdSwapped].style.background === squares[squareIdSwapped + 1].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped + 2].style.background) {
+
+        //Check if valid move contains a match
+        if (rowEnds.includes(squareIdSwapped) && columnEnds.includes(squareIdSwapped)) {
+            if (squares[squareIdSwapped].style.background === squares[squareIdSwapped - 1].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped - 2].style.background) {
+                squareIdSwapped = null
+            } else if (squares[squareIdSwapped].style.background === squares[squareIdSwapped - width].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped - width * 2].style.background) {
+                squareIdSwapped = null
+            } else {
+                squares[squareIdSwapped].style.background = colorSwapped;
+                squares[squareIdDragged].style.background = colorDragged;
+            }
+        } else if (rowStarts.includes(squareIdSwapped) && columnStarts.includes(squareIdSwapped)) {
+            if (squares[squareIdSwapped].style.background === squares[squareIdSwapped + 1].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped + 2].style.background) {
+                squareIdSwapped = null
+            } else if (squares[squareIdSwapped].style.background === squares[squareIdSwapped + width].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped + width * 2].style.background) {
+                squareIdSwapped = null
+            } else {
+                squares[squareIdSwapped].style.background = colorSwapped;
+                squares[squareIdDragged].style.background = colorDragged;
+            }
+        } else if (squares[squareIdSwapped].style.background === squares[squareIdSwapped + 1].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped + 2].style.background) {
             squareIdSwapped = null
         } else if (squares[squareIdSwapped].style.background === squares[squareIdSwapped - 1].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped + 1].style.background) {
             squareIdSwapped = null
@@ -119,7 +140,9 @@ function dragEnd() {
             squareIdSwapped = null;
         } else if (squares[squareIdSwapped].style.background === squares[squareIdSwapped - width].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped - width * 2].style.background) {
             squareIdSwapped = null;
-        } else {
+        } //End check if validd move contains a match
+
+        else {
             squares[squareIdSwapped].style.background = colorSwapped;
             squares[squareIdDragged].style.background = colorDragged;
         }
@@ -152,7 +175,6 @@ function dragDrop() {
 function moveDown() {
     for (i = 0; i < 56; i++) {
         if (squares[i + width].style.background === '') {
-            let id = null;
             squares[i + width].style.background = squares[i].style.background
             squares[i + width].style.top = '70px';
             squares[i].style.background = ''
@@ -295,6 +317,7 @@ function checkHighScore() {
     if (score > highScore) {
         highScore = score;
         highScoreDisplay.innerText = highScore;
+        announceHighScore.innerText = 'You got the high score!'
     }
 }
 
@@ -353,6 +376,9 @@ function startGame() {
     scoreDisplay.innerHTML = score;
     for (let square of squares) {
         square.classList.remove("hide");
+    }
+    if (announceHighScore.innerText !== '') {
+        announceHighScore.innerText = '';
     }
 }
 

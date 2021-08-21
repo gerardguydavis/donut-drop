@@ -72,6 +72,11 @@ body {
   text-transform: uppercase;
   margin: 0;
 }
+#start-menu #announce-high-score {
+  margin-bottom: 20px;
+  color: gold;
+  font-size: 2.5em;
+}
 #start-menu p {
   font-family: "Cherry Swash", serif;
   line-height: 18px;
