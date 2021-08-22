@@ -3,7 +3,7 @@ const scoreDisplay = document.getElementById('score');
 const highScoreDisplay = document.getElementById('highscore')
 const width = 8;
 const squares = [];
-const startingMinutes = 2;
+const startingMinutes = 1;
 const timer = document.getElementById('timer');
 const timerDisplay = document.getElementById('timer-display');
 const startButton = document.getElementById('start-button');
@@ -22,6 +22,7 @@ const sweetsColors = ['url(img/choco.png)', 'url(img/marble.png)', 'url(img/mint
 function createGrid() {
     for (let i = 0; i < width * width; i++) {
         const square = document.createElement('div');
+        square.className = 'donut';
         square.setAttribute('draggable', true);
         square.setAttribute('id', i);
         let randomColor = Math.floor(Math.random() * sweetsColors.length);
@@ -48,6 +49,65 @@ squares.forEach(square => square.addEventListener('dragover', dragOver));
 squares.forEach(square => square.addEventListener('dragenter', dragEnter));
 squares.forEach(square => square.addEventListener('dragleave', dragLeave));
 squares.forEach(square => square.addEventListener('drop', dragDrop));
+
+
+
+/*I DON'T THINK THIS WORKS:
+
+function moveLeft() {
+    if (squareIdSwapped === (squareIdDragged - 1)) {
+        squares[squareIdDragged].classList.add("move-left");
+        squares[squareIdSwapped].classList.add("move-right");
+        setTimeout(function () {
+            squares[squareIdSwapped].classList.remove("move-left");
+            squares[squareIdDragged].classList.remove("move-right");
+            squareIdSwapped = null
+        }, 500);
+    }
+}
+
+function moveRight() {
+    if (squareIdSwapped === (squareIdDragged + 1)) {
+        squares[squareIdDragged].classList.add("move-right");
+        squares[squareIdSwapped].classList.add("move-left");
+        setTimeout(function () {
+            squares[squareIdSwapped].classList.remove("move-right");
+            squares[squareIdDragged].classList.remove("move-left");
+            squareIdSwapped = null
+        }, 500);
+    }
+}
+
+function moveUp() {
+    if (squareIdSwapped === (squareIdDragged - width)) {
+        squares[squareIdDragged].classList.add("move-up");
+        squares[squareIdSwapped].classList.add("move-down");
+        setTimeout(function () {
+            squares[squareIdDragged].classList.remove("move-up");
+            squares[squareIdSwapped].classList.remove("move-down");
+            squareIdSwapped = null
+        }, 500);
+    }
+}
+
+function moveDown() {
+    if (squareIdSwapped === (squareIdDragged + width)) {
+        squares[squareIdDragged].classList.add("move-down");
+        squares[squareIdSwapped].classList.add("move-up");
+        setTimeout(function () {
+            squares[squareIdDragged].classList.remove("move-down");
+            squares[squareIdSwapped].classList.remove("move-up");
+            squareIdSwapped = null
+        }, 500);
+    }
+}
+
+function checkSwap() {
+    moveLeft();
+    moveRight();
+    moveUp();
+    moveDown();
+}*/
 
 function dragStart() {
     colorDragged = this.style.background;
@@ -78,9 +138,10 @@ function dragEnd() {
     } else if (squareIdSwapped && validMove) {
 
         //Check if valid move contains a match
+
         if (rowEnds.includes(squareIdSwapped) && columnEnds.includes(squareIdSwapped)) {
             if (squares[squareIdSwapped].style.background === squares[squareIdSwapped - 1].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped - 2].style.background) {
-                squareIdSwapped = null
+                squareIdSwapped = null;
             } else if (squares[squareIdSwapped].style.background === squares[squareIdSwapped - width].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped - width * 2].style.background) {
                 squareIdSwapped = null
             } else {
@@ -140,12 +201,15 @@ function dragEnd() {
             squareIdSwapped = null;
         } else if (squares[squareIdSwapped].style.background === squares[squareIdSwapped - width].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped - width * 2].style.background) {
             squareIdSwapped = null;
-        } //End check if validd move contains a match
-
+        }
         else {
             squares[squareIdSwapped].style.background = colorSwapped;
             squares[squareIdDragged].style.background = colorDragged;
         }
+
+        //End check if valid move contains a match
+
+
     } else if (squareIdSwapped && !validMove) {
         squares[squareIdSwapped].style.background = colorSwapped;
         squares[squareIdDragged].style.background = colorDragged;
@@ -187,6 +251,7 @@ function moveDown() {
         }
     }
 }
+
 
 //Check matches
 
@@ -313,6 +378,8 @@ function checkColumnForFive() {
     }
 }
 
+
+//Check for high score
 function checkHighScore() {
     if (score > highScore) {
         highScore = score;
@@ -321,6 +388,7 @@ function checkHighScore() {
     }
 }
 
+//Countdown Timer
 function countdown() {
     const minutes = Math.floor((time - 1) / 60);
     let seconds = (time - 1) % 60;
@@ -328,7 +396,7 @@ function countdown() {
     seconds = seconds < 10 ? '0' + seconds : seconds;
     timer.innerHTML = `${minutes}:${seconds}`;
     if (isNaN(minutes)) {
-        timer.innerHTML = `2:00`;
+        timer.innerHTML = `1:00`;
     }
     time--;
 }
@@ -353,12 +421,8 @@ function timesUp() {
     }
 }
 
-function randomize() {
-    for (let square of squares) {
-        let randomColor = Math.floor(Math.random() * sweetsColors.length)
-        square.style.background = sweetsColors[randomColor];
-    }
-}
+
+//Start new game with randomized board
 
 function startGame() {
     replay = true;
@@ -379,6 +443,13 @@ function startGame() {
     }
     if (announceHighScore.innerText !== '') {
         announceHighScore.innerText = '';
+    }
+}
+
+function randomize() {
+    for (let square of squares) {
+        let randomColor = Math.floor(Math.random() * sweetsColors.length)
+        square.style.background = sweetsColors[randomColor];
     }
 }
 

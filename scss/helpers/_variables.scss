@@ -1,3 +1,7 @@
+.hide {
+    display: none;
+}
+
 .heading {
     font-family: "Cherry Swash", cursive;
 }
@@ -18,60 +22,18 @@
     padding: 15px 0;
     margin-bottom: 15px;
     h3 {
+        @extend .heading;
         font: {
-            family: "Cherry Swash", cursive;
             size: 1.5em;
         }
         width: 100%;
         margin: 0;
     }
     h2 {
+        @extend .scores;
         font : {
-            family: "Fredoka One", sans-serif;
             size: 2em;
         }
         margin: 0;
     }
 }
-
-.hide {
-    display: none;
-}
-
-.start {
-    top: 50%;
-}
-
-.slideout {
-    animation: slide-down .5s ease-out;
-    top: 150%;
-}
-
-.slidein {
-    animation: slide-up .25s ease-in;
-    top: 50%;
-}
-
-@keyframes slide-down {
-    from {
-      top: 50%;
-      opacity: 1;
-    }
-  
-    to {
-      top: 150%;
-      opacity: 0;
-    }
-  }
-
-  @keyframes slide-up {
-    from {
-      top: 150%;
-      opacity: 0;
-    }
-  
-    to {
-      top: 50%;
-      opacity: 1;
-    }
-  }
