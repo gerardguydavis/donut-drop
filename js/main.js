@@ -495,7 +495,9 @@ window.setInterval(function () {
 
 // HINT FUNCTIONS
 hintButton.addEventListener("click", function () {
-    getHint();
+    if (!startMenu.classList.contains("slidein")) {
+        getHint();
+    }
 });
 
 function removeHint() {
@@ -513,14 +515,14 @@ function getHint() {
 
     // X - X X
     for (let i = 0; i < 61; i++) {
-        if (squares[i].style.background === squares[i + 2].style.background && squares[i].style.background === squares[i + 3].style.background && !rowStarts.includes(squares.indexOf(squares[i + 1])) && !rowStarts.includes(squares.indexOf(squares[i + 2]))) {
+        if (squares[i].style.background === squares[i + 2].style.background && squares[i].style.background === squares[i + 3].style.background && !rowStarts.includes(squares.indexOf(squares[i + 1])) && !rowStarts.includes(squares.indexOf(squares[i + 2])) && !rowStarts.includes(squares.indexOf(squares[i + 3]))) {
             hints.push(squares.indexOf(squares[i]));
         }
     }
 
     // X X - X
     for (let i = 63; i > 2; i--) {
-        if (squares[i].style.background === squares[i - 2].style.background && squares[i].style.background === squares[i - 3].style.background && !rowEnds.includes(squares.indexOf(squares[i - 1])) && !rowEnds.includes(squares.indexOf(squares[i - 2]))) {
+        if (squares[i].style.background === squares[i - 2].style.background && squares[i].style.background === squares[i - 3].style.background && !rowEnds.includes(squares.indexOf(squares[i - 1])) && !rowEnds.includes(squares.indexOf(squares[i - 2])) && !rowEnds.includes(squares.indexOf(squares[i - 3]))) {
             hints.push(squares.indexOf(squares[i]));
         }
     }
@@ -649,8 +651,6 @@ function getHint() {
         }
     }
 
-    console.log(hints);
     let randomHint = Math.floor(Math.random() * hints.length);
     squares[hints[randomHint]].classList.add("hint");
-    console.log(squares[hints[randomHint]]);
 }
