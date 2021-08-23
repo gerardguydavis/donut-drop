@@ -10,7 +10,14 @@ const startButton = document.getElementById('start-button');
 const startMenu = document.getElementById('start-menu');
 const startMessage = document.getElementById('start-message');
 const startDesc = document.getElementById('start-desc');
-const announceHighScore = document.getElementById('announce-high-score')
+const announceHighScore = document.getElementById('announce-high-score');
+const hintButton = document.getElementById('hint');
+const rowEnds = [7, 15, 23, 31, 39, 47, 55, 63]
+const rowStarts = [0, 8, 16, 24, 32, 40, 48, 56]
+const columnEnds = [56, 57, 58, 59, 60, 61, 62, 63]
+const columnStarts = [0, 1, 2, 3, 4, 5, 6, 7]
+const column2Ends = [48, 49, 50, 51, 52, 53, 54, 55]
+const column2Starts = [8, 9, 10, 11, 12, 13, 14, 15]
 let score = 0;
 let highScore = 10000;
 let replay = false;
@@ -115,6 +122,13 @@ function dragStart() {
 }
 
 function dragEnd() {
+
+    for (let i = 0; i < 64; i++) {
+        if (squares[i].classList.contains("hint")) {
+            squares[i].classList.remove("hint");
+        }
+    }
+
     let validMoves = [
         squareIdDragged - 1,
         squareIdDragged - width,
@@ -122,12 +136,7 @@ function dragEnd() {
         squareIdDragged + width
     ]
     let validMove = validMoves.includes(squareIdSwapped);
-    const rowEnds = [7, 15, 23, 31, 39, 47, 55, 63]
-    const rowStarts = [0, 8, 16, 24, 32, 40, 48, 56]
-    const columnEnds = [56, 57, 58, 59, 60, 61, 62, 63]
-    const columnStarts = [0, 1, 2, 3, 4, 5, 6, 7]
-    const column2Ends = [48, 49, 50, 51, 52, 53, 54, 55]
-    const column2Starts = [8, 9, 10, 11, 12, 13, 14, 15]
+
 
     if (rowStarts.includes(squareIdDragged) && rowEnds.includes(squareIdSwapped)) {
         squares[squareIdSwapped].style.background = colorSwapped;
@@ -475,3 +484,93 @@ window.setInterval(function () {
         checkHighScore()
 }
     , 100);
+
+hintButton.addEventListener("click", function () {
+    getHint();
+});
+
+function getHint() {
+    let hints = [];
+
+    for (let i = 0; i < 64; i++) {
+        if (squares[i].classList.contains("hint")) {
+            squares[i].classList.remove("hint");
+        }
+    }
+
+    for (let i = 0; i < 61; i++) {
+        if (squares[i].style.background === squares[i + 2].style.background && squares[i].style.background === squares[i + 3].style.background) {
+            if (!rowStarts.includes(squares.indexOf(squares[i + 2]))) {
+                hints.push(squares.indexOf(squares[i]));
+            }
+        }
+    }
+
+    for (let i = 63; i > 2; i--) {
+        if (squares[i].style.background === squares[i - 2].style.background && squares[i].style.background === squares[i - 3].style.background) {
+            if (!rowEnds.includes(squares.indexOf(squares[i - 2]))) {
+                hints.push(squares.indexOf(squares[i]));
+            }
+        }
+    }
+
+    for (let i = 0; i < 40; i++) {
+        if (squares[i].style.background === squares[i + width * 2].style.background && squares[i].style.background === squares[i + width * 3].style.background) {
+            hints.push(squares.indexOf(squares[i]));
+        }
+    }
+
+    for (let i = 63; i > 23; i--) {
+        if (squares[i].style.background === squares[i - width * 2].style.background && squares[i].style.background === squares[i - width * 3].style.background) {
+            hints.push(squares.indexOf(squares[i]));
+        }
+    }
+
+    for (let i = 0; i < 47; i++) {
+        if (squares[i].style.background === squares[i + width - 1].style.background && squares[i].style.background === squares[i + width * 2 - 1].style.background) {
+            if (!rowEnds.includes(squares.indexOf(squares[i - 1]))) {
+                hints.push(squares.indexOf(squares[i]))
+            }
+        } else if (squares[i].style.background === squares[i + width + 1].style.background && squares[i].style.background === squares[i + width * 2 + 1].style.background) {
+            if (!rowEnds.includes(squares.indexOf(squares[i - 1]))) {
+                hints.push(squares.indexOf(squares[i]))
+            }
+        }
+    }
+
+    for (let i = 63; i > 16; i--) {
+        if (squares[i].style.background === squares[i - width - 1].style.background && squares[i].style.background === squares[i - width * 2 - 1].style.background) {
+            if (!rowEnds.includes(squares.indexOf(squares[i - 1]))) {
+                hints.push(squares.indexOf(squares[i]))
+            }
+        } else if (squares[i].style.background === squares[i - width + 1].style.background && squares[i].style.background === squares[i - width * 2 + 1].style.background) {
+            if (!rowEnds.includes(squares.indexOf(squares[i + 1]))) {
+                hints.push(squares.indexOf(squares[i]))
+            }
+        }
+    }
+
+    for (let i = 9; i < 55; i++) {
+        if (squares[i].style.background === squares[i - width - 1].style.background && squares[i].style.background === squares[i + width - 1].style.background) {
+            if (!rowEnds.includes(squares.indexOf(squares[i - 1]))) {
+                hints.push(squares.indexOf(squares[i]));
+            }
+        } else if (squares[i].style.background === squares[i - width + 1].style.background && squares[i].style.background === squares[i + width + 1].style.background) {
+            if (!rowStarts.includes(squares.indexOf(squares[i + 1]))) {
+                hints.push(squares.indexOf(squares[i]))
+            }
+        } else if (!rowEnds.includes(squares.indexOf(squares[i - 1])) && !rowStarts.includes(squares.indexOf(squares[i + 1]))) {
+            if (squares[i].style.background === squares[i - width - 1].style.background && squares[i].style.background === squares[i - width + 1].style.background) {
+                hints.push(squares.indexOf(squares[i]))
+            } else if (squares[i].style.background === squares[i + width - 1].style.background && squares[i].style.background === squares[i + width + 1].style.background) {
+                hints.push(squares.indexOf(squares[i]))
+            }
+        }
+
+    }
+
+    console.log(hints);
+    let randomHint = Math.floor(Math.random() * hints.length)
+    squares[hints[randomHint]].classList.add("hint");
+    console.log(squares[hints[randomHint]]);
+}

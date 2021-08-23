@@ -37,7 +37,7 @@
         margin: 30px 0;
     }
     button {
-        background-color: yellow;
+        background-color: gold;
         border : {
             top: none;
             left: none;
@@ -47,12 +47,12 @@
         padding: 20px 50px;
         border-radius: 30px;
         &:hover {
-            background-color: gold;
+            background-color: palegoldenrod;
             cursor: pointer;
             transition: .1s;
         }
         &:active {
-            background-color: teal;
+            background-color: goldenrod;
             border-bottom: solid 2px darkgoldenrod;
             margin-top: 5px;
             transition: .2s;
