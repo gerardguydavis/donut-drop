@@ -412,6 +412,9 @@ function countdown() {
 
 function timesUp() {
     if (time < 1) {
+        if (squares[i].classList.contains("hint")) {
+            squares[i].classList.remove("hint");
+        }
         time = 0;
         timer.innerHTML = `0:00`;
         if (replay === true) {
@@ -500,14 +503,14 @@ function getHint() {
 
     // X - X X
     for (let i = 0; i < 61; i++) {
-        if (squares[i].style.background === squares[i + 2].style.background && squares[i].style.background === squares[i + 3].style.background && !rowEnds.includes(squares.indexOf(squares[i + 1]) && !rowStarts.includes(squares.indexOf(squares[i + 2])))) {
+        if (squares[i].style.background === squares[i + 2].style.background && squares[i].style.background === squares[i + 3].style.background && !rowEnds.includes(squares.indexOf(squares[i + 1])) && !rowStarts.includes(squares.indexOf(squares[i + 2]))) {
             hints.push(squares.indexOf(squares[i]));
         }
     }
 
     // X X - X
     for (let i = 63; i > 2; i--) {
-        if (squares[i].style.background === squares[i - 2].style.background && squares[i].style.background === squares[i - 3].style.background && !rowEnds.includes(squares.indexOf(squares[i - 1]) && !rowEnds.includes(squares.indexOf(squares[i - 2])))) {
+        if (squares[i].style.background === squares[i - 2].style.background && squares[i].style.background === squares[i - 3].style.background && !rowEnds.includes(squares.indexOf(squares[i - 1])) && !rowEnds.includes(squares.indexOf(squares[i - 2]))) {
             hints.push(squares.indexOf(squares[i]));
         }
     }
