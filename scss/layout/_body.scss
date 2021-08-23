@@ -9,3 +9,11 @@ body {
     width: 100vw;
     height: 100vh;
 }
+
+@media only screen and (max-width: 800px) {
+    body {
+        transform: scale(.75);
+        overflow-y: scroll;
+        max-width: 100vw;
+    }
+}

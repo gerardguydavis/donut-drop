@@ -22,10 +22,12 @@
     &:hover {
     transform: scale(1.1);
     transition: .2s;
+    cursor: pointer;
     }
 }
 
 .hint {
-    box-shadow: 0px 0px 10px 10px palegoldenrod;
     border-radius: 50%;
+    z-index: 100;
+    animation: flash-hint 3s linear infinite;
 }

@@ -1,3 +1,43 @@
+.heading {
+    color: hotpink;
+    font : {
+        size: 1.5em;
+        family: "Cherry Swash", cursive;
+    }
+    width: 100%;
+    margin: 0;
+    word-spacing: -3px;
+}
+
+.scores {
+    font : {
+        size: 2em;
+        family: "Fredoka One", sans-serif;
+    }
+    margin: 0;
+}
+
+.scorebox {
+    width: 200px;
+    background-color:#fff;;
+    border:solid 5px hotpink;
+    border-radius: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    text-align: center;
+    padding: 15px 0;
+    margin-bottom: 15px;
+    h3 {
+        @extend .heading;
+
+    }
+    h2 {
+        @extend .scores;
+    }
+}
+
+
 h1 {
     @extend .heading;
     text-align: center;
@@ -12,6 +52,7 @@ h1 {
     padding: 20px 10px;
     width: 250px;
     border: solid 5px hotpink;
+    word-spacing: -7px;
 }
 
 #gameboard-wrap {
@@ -22,11 +63,11 @@ h1 {
     align-items: flex-start;
 }
 
-#time-and-score {
+#time-and-score,
+#highscore-and-hint {
     display: flex;
     flex-flow: column;
-    justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     margin-top: 15px;
 }
 
@@ -36,9 +77,39 @@ h1 {
     @extend .scorebox;
 }
 
-#highscore-display {
-    margin-top: 15px;
+.newhighscore {
+    @extend .scorebox;
+    box-shadow: 0px 0px 2px 8px gold;
+    animation: flash .3s ease-out infinite alternate;
     h2 {
         color: gold;
     }
+}
+
+#hint {
+    justify-self: center;
+    background: #ffe8f4;
+    font : {
+        family: "Fredoka One", sans-serif;
+        size: 2em;
+    }
+    text-transform: uppercase;
+    border: solid 5px hotpink;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    &:hover {
+        cursor: pointer;
+        background: rgb(255,226,0);
+        transition: .3s;
+    }
+    &:active {
+        background: rgb(230,192,0);
+        font: {
+            size: 1.9em;
+        }
+        transition: .2s;
+    }
+    transition: .3s;
+    margin-top: 150%;
 }

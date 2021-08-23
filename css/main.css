@@ -12,6 +12,13 @@ body {
   height: 100vh;
 }
 
+@media only screen and (max-width: 800px) {
+  body {
+    transform: scale(0.75);
+    overflow-y: scroll;
+    max-width: 100vw;
+  }
+}
 .grid {
   display: flex;
   flex-flow: wrap;
@@ -37,15 +44,26 @@ body {
 .donut:hover {
   transform: scale(1.1);
   transition: 0.2s;
+  cursor: pointer;
 }
 
 .hint {
-  box-shadow: 0px 0px 10px 10px palegoldenrod;
   border-radius: 50%;
+  z-index: 100;
+  animation: flash-hint 3s linear infinite;
+}
+
+.hide {
+  display: none;
 }
 
 .start {
   top: 50%;
+}
+
+.flash {
+  box-shadow: 0px 0px 2px 8px gold;
+  animation: flash 0.1s ease-in-out infinite alternate;
 }
 
 #start-menu {
@@ -68,6 +86,9 @@ body {
   text-transform: uppercase;
   margin: 0;
 }
+#start-menu h2 {
+  color: hotpink;
+}
 #start-menu #announce-high-score {
   margin-bottom: 20px;
   color: gold;
@@ -78,23 +99,25 @@ body {
   font-size: 1.25em;
   line-height: 20px;
   margin: 30px 0;
+  word-spacing: -3px;
 }
 #start-menu button {
-  background-color: gold;
+  background-color: #ffea70;
   border-top: none;
   border-left: none;
   border-right: none;
   border-bottom: solid 7px darkgoldenrod;
   padding: 20px 50px;
   border-radius: 30px;
+  transition: 0.2s;
 }
 #start-menu button:hover {
-  background-color: palegoldenrod;
+  background-color: gold;
   cursor: pointer;
-  transition: 0.1s;
+  transition: 0.2s;
 }
 #start-menu button:active {
-  background-color: goldenrod;
+  background-color: #e0bf0d;
   border-bottom: solid 2px darkgoldenrod;
   margin-top: 5px;
   transition: 0.2s;
@@ -105,59 +128,26 @@ body {
   line-height: 1em;
 }
 
-h1 {
-  text-align: center;
-  margin-top: 0;
-  margin-bottom: -10px;
-  color: hotpink;
-  font-size: 2.5em;
-  background-color: #fff;
-  border-radius: 50%;
-  padding: 20px 10px;
-  width: 250px;
-  border: solid 5px hotpink;
-}
-
-#gameboard-wrap {
-  flex-basis: 100%;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-#time-and-score {
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-  align-items: flex-start;
-  margin-top: 15px;
-}
-
-#highscore-display {
-  margin-top: 15px;
-}
-#highscore-display h2 {
-  color: gold;
-}
-
-.hide {
-  display: none;
-}
-
-.heading, .scorebox h3, #score-display h3,
+.heading, h1, .scorebox h3, .newhighscore h3, #score-display h3,
 #timer-display h3,
-#highscore-display h3, h1 {
+#highscore-display h3 {
+  color: hotpink;
+  font-size: 1.5em;
   font-family: "Cherry Swash", cursive;
+  width: 100%;
+  margin: 0;
+  word-spacing: -3px;
 }
 
-.scores, .scorebox h2, #score-display h2,
+.scores, .scorebox h2, .newhighscore h2, #score-display h2,
 #timer-display h2,
 #highscore-display h2 {
+  font-size: 2em;
   font-family: "Fredoka One", sans-serif;
+  margin: 0;
 }
 
-.scorebox, #score-display,
+.scorebox, .newhighscore, #score-display,
 #timer-display,
 #highscore-display {
   width: 200px;
@@ -171,18 +161,70 @@ h1 {
   padding: 15px 0;
   margin-bottom: 15px;
 }
-.scorebox h3, #score-display h3,
-#timer-display h3,
-#highscore-display h3 {
-  font-size: 1.5em;
-  width: 100%;
-  margin: 0;
+h1 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: -10px;
+  color: hotpink;
+  font-size: 2.5em;
+  background-color: #fff;
+  border-radius: 50%;
+  padding: 20px 10px;
+  width: 250px;
+  border: solid 5px hotpink;
+  word-spacing: -7px;
 }
-.scorebox h2, #score-display h2,
-#timer-display h2,
-#highscore-display h2 {
+
+#gameboard-wrap {
+  flex-basis: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+#time-and-score,
+#highscore-and-hint {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.newhighscore {
+  box-shadow: 0px 0px 2px 8px gold;
+  animation: flash 0.3s ease-out infinite alternate;
+}
+.newhighscore h2 {
+  color: gold;
+}
+
+#hint {
+  justify-self: center;
+  background: #ffe8f4;
+  font-family: "Fredoka One", sans-serif;
   font-size: 2em;
-  margin: 0;
+  text-transform: uppercase;
+  border: solid 5px hotpink;
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  transition: 0.3s;
+  margin-top: 150%;
+}
+#hint:hover {
+  cursor: pointer;
+  background: #ffe200;
+  transition: 0.3s;
+}
+#hint:active {
+  background: #e6c000;
+  font-size: 1.9em;
+  transition: 0.2s;
+}
+
+.hide {
+  display: none;
 }
 
 .slideout {
@@ -261,6 +303,28 @@ h1 {
   }
   to {
     transform: translateY(90px);
+  }
+}
+@keyframes flash {
+  from {
+    box-shadow: 0px 0px 2px 5px gold;
+  }
+  to {
+    box-shadow: 0px 0px 4px 12px yellow;
+  }
+}
+@keyframes flash-hint {
+  from {
+    box-shadow: 0px 0px 10px 3px #ffe8f4;
+    transform: rotate(0) scale(1);
+  }
+  50% {
+    box-shadow: 0px 0px 10px 10px gold;
+    transform: rotate(179deg) scale(1.1);
+  }
+  to {
+    box-shadow: 0px 0px 10px 3px #ffe8f4;
+    transform: rotate(359deg) scale(1);
   }
 }
 

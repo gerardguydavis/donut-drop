@@ -1,6 +1,7 @@
 const grid = document.querySelector('.grid');
 const scoreDisplay = document.getElementById('score');
-const highScoreDisplay = document.getElementById('highscore')
+const highScoreText = document.getElementById('highscore')
+const highScoreDisplay = document.getElementById('highscore-display')
 const width = 8;
 const squares = [];
 const startingMinutes = 1;
@@ -123,11 +124,7 @@ function dragStart() {
 
 function dragEnd() {
 
-    for (let i = 0; i < 64; i++) {
-        if (squares[i].classList.contains("hint")) {
-            squares[i].classList.remove("hint");
-        }
-    }
+    removeHint();
 
     let validMoves = [
         squareIdDragged - 1,
@@ -166,11 +163,11 @@ function dragEnd() {
                 squares[squareIdSwapped].style.background = colorSwapped;
                 squares[squareIdDragged].style.background = colorDragged;
             }
-        } else if (squares[squareIdSwapped].style.background === squares[squareIdSwapped + 1].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped + 2].style.background) {
+        } else if (squares[squareIdSwapped].style.background === squares[squareIdSwapped + 1].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped + 2].style.background && !rowStarts.includes(squareIdSwapped + 1) && !rowStarts.includes(squareIdSwapped + 2)) {
             squareIdSwapped = null
-        } else if (squares[squareIdSwapped].style.background === squares[squareIdSwapped - 1].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped + 1].style.background) {
+        } else if (squares[squareIdSwapped].style.background === squares[squareIdSwapped - 1].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped + 1].style.background && !rowStarts.includes(squareIdSwapped + 1) && !rowEnds.includes(squareIdSwapped - 1)) {
             squareIdSwapped = null
-        } else if (squares[squareIdSwapped].style.background === squares[squareIdSwapped - 1].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped - 2].style.background) {
+        } else if (squares[squareIdSwapped].style.background === squares[squareIdSwapped - 1].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped - 2].style.background && !rowEnds.includes(squareIdSwapped - 1) && !rowEnds.includes(squareIdSwapped - 2)) {
             squareIdSwapped = null
         } else if (columnEnds.includes(squareIdSwapped)) {
             if (squares[squareIdSwapped].style.background === squares[squareIdSwapped - width].style.background && squares[squareIdSwapped].style.background === squares[squareIdSwapped - width * 2].style.background) {
@@ -282,6 +279,7 @@ function checkRowForThree() {
             rowOfThree.forEach(index => {
                 squares[index].style.background = '';
             })
+            removeHint();
         }
     }
 }
@@ -301,6 +299,7 @@ function checkColumnForThree() {
             columnOfThree.forEach(index => {
                 squares[index].style.background = '';
             })
+            removeHint();
         }
     }
 }
@@ -323,6 +322,7 @@ function checkRowForFour() {
             rowOfFour.forEach(index => {
                 squares[index].style.background = '';
             })
+            removeHint();
         }
     }
 }
@@ -342,6 +342,7 @@ function checkColumnForFour() {
             columnOfFour.forEach(index => {
                 squares[index].style.background = '';
             })
+            removeHint();
         }
     }
 }
@@ -364,6 +365,7 @@ function checkRowForFive() {
             rowOfFive.forEach(index => {
                 squares[index].style.background = '';
             })
+            removeHint();
         }
     }
 }
@@ -383,6 +385,7 @@ function checkColumnForFive() {
             columnOfFive.forEach(index => {
                 squares[index].style.background = '';
             })
+            removeHint();
         }
     }
 }
@@ -392,8 +395,10 @@ function checkColumnForFive() {
 function checkHighScore() {
     if (score > highScore) {
         highScore = score;
-        highScoreDisplay.innerText = highScore;
+        highScoreText.innerText = highScore;
+        highScoreDisplay.classList.add("newhighscore");
         announceHighScore.innerText = 'You got the high score!'
+        startMenu.classList.add("flash");
     }
 }
 
@@ -412,9 +417,7 @@ function countdown() {
 
 function timesUp() {
     if (time < 1) {
-        if (squares[i].classList.contains("hint")) {
-            squares[i].classList.remove("hint");
-        }
+        removeHint();
         time = 0;
         timer.innerHTML = `0:00`;
         if (replay === true) {
@@ -425,11 +428,6 @@ function timesUp() {
             startMenu.classList.remove("slideout");
             startMenu.classList.add("slidein");
         }
-        for (let square of squares) {
-            if (!square.classList.contains("hide")) {
-                square.classList.add("hide");
-            }
-        }
     }
 }
 
@@ -439,14 +437,21 @@ function timesUp() {
 function startGame() {
     replay = true;
     randomize();
+    removeHint();
     timerDisplay.classList.remove("hide");
     time = startingMinutes * 60;
     startMenu.classList.add("slideout");
     if (startMenu.classList.contains("start")) {
         startMenu.classList.remove("start");
     }
+    if (startMenu.classList.contains("flash")) {
+        startMenu.classList.remove("flash");
+    }
     if (startMenu.classList.contains("slidein")) {
         startMenu.classList.remove("slidein");
+    }
+    if (highScoreDisplay.classList.contains("newhighscore")) {
+        highScoreDisplay.classList.remove("newhighscore");
     }
     score = 0;
     scoreDisplay.innerHTML = score;
@@ -488,22 +493,27 @@ window.setInterval(function () {
 }
     , 100);
 
+// HINT FUNCTIONS
 hintButton.addEventListener("click", function () {
     getHint();
 });
 
-function getHint() {
-    let hints = [];
-
+function removeHint() {
     for (let i = 0; i < 64; i++) {
         if (squares[i].classList.contains("hint")) {
             squares[i].classList.remove("hint");
         }
     }
+}
+
+function getHint() {
+    let hints = [];
+
+    removeHint();
 
     // X - X X
     for (let i = 0; i < 61; i++) {
-        if (squares[i].style.background === squares[i + 2].style.background && squares[i].style.background === squares[i + 3].style.background && !rowEnds.includes(squares.indexOf(squares[i + 1])) && !rowStarts.includes(squares.indexOf(squares[i + 2]))) {
+        if (squares[i].style.background === squares[i + 2].style.background && squares[i].style.background === squares[i + 3].style.background && !rowStarts.includes(squares.indexOf(squares[i + 1])) && !rowStarts.includes(squares.indexOf(squares[i + 2]))) {
             hints.push(squares.indexOf(squares[i]));
         }
     }
@@ -640,7 +650,7 @@ function getHint() {
     }
 
     console.log(hints);
-    let randomHint = Math.floor(Math.random() * hints.length)
+    let randomHint = Math.floor(Math.random() * hints.length);
     squares[hints[randomHint]].classList.add("hint");
     console.log(squares[hints[randomHint]]);
 }

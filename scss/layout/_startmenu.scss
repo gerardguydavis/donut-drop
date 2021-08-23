@@ -1,5 +1,12 @@
+@import '../helpers/variables';
+
 .start {
     top: 50%;
+}
+
+.flash {
+    box-shadow: 0px 0px 2px 8px gold;
+    animation: flash .1s ease-in-out infinite alternate;
 }
 
 #start-menu {
@@ -23,6 +30,9 @@
         text-transform: uppercase;
         margin: 0;
     }
+    h2 {
+        color: hotpink;
+    }
     #announce-high-score {
         margin-bottom: 20px;
         color: gold;
@@ -35,9 +45,10 @@
         }
         line-height: 20px;
         margin: 30px 0;
+        word-spacing: -3px;
     }
     button {
-        background-color: gold;
+        background-color: $start-button;
         border : {
             top: none;
             left: none;
@@ -47,16 +58,17 @@
         padding: 20px 50px;
         border-radius: 30px;
         &:hover {
-            background-color: palegoldenrod;
+            background-color: gold;
             cursor: pointer;
-            transition: .1s;
+            transition: .2s;
         }
         &:active {
-            background-color: goldenrod;
+            background-color: $start-button-press;
             border-bottom: solid 2px darkgoldenrod;
             margin-top: 5px;
             transition: .2s;
         }
+        transition: .2s;
     }
     #start-desc {
         span {
