@@ -498,21 +498,24 @@ function getHint() {
         }
     }
 
+    // X - X X
     for (let i = 0; i < 61; i++) {
-        if (squares[i].style.background === squares[i + 2].style.background && squares[i].style.background === squares[i + 3].style.background) {
-            if (!rowStarts.includes(squares.indexOf(squares[i + 2]))) {
-                hints.push(squares.indexOf(squares[i]));
-            }
+        if (squares[i].style.background === squares[i + 2].style.background && squares[i].style.background === squares[i + 3].style.background && !rowEnds.includes(squares.indexOf(squares[i + 1]) && !rowStarts.includes(squares.indexOf(squares[i + 2])))) {
+            hints.push(squares.indexOf(squares[i]));
         }
     }
 
+    // X X - X
     for (let i = 63; i > 2; i--) {
-        if (squares[i].style.background === squares[i - 2].style.background && squares[i].style.background === squares[i - 3].style.background) {
-            if (!rowEnds.includes(squares.indexOf(squares[i - 2]))) {
-                hints.push(squares.indexOf(squares[i]));
-            }
+        if (squares[i].style.background === squares[i - 2].style.background && squares[i].style.background === squares[i - 3].style.background && !rowEnds.includes(squares.indexOf(squares[i - 1]) && !rowEnds.includes(squares.indexOf(squares[i - 2])))) {
+            hints.push(squares.indexOf(squares[i]));
         }
     }
+
+    /* X
+       -
+       X
+       X */
 
     for (let i = 0; i < 40; i++) {
         if (squares[i].style.background === squares[i + width * 2].style.background && squares[i].style.background === squares[i + width * 3].style.background) {
@@ -520,53 +523,117 @@ function getHint() {
         }
     }
 
+    /* X
+       X
+       -
+       X */
     for (let i = 63; i > 23; i--) {
         if (squares[i].style.background === squares[i - width * 2].style.background && squares[i].style.background === squares[i - width * 3].style.background) {
             hints.push(squares.indexOf(squares[i]));
         }
     }
 
+    /* - X
+       X - 
+       X - */
+    for (let i = 1; i < 48; i++) {
+        if (squares[i].style.background === squares[i + width - 1].style.background && squares[i].style.background === squares[i + width * 2 - 1].style.background && !rowEnds.includes(squares.indexOf(squares[i - 1]))) {
+            hints.push(squares.indexOf(squares[i]))
+        }
+    }
+
+    /* X -
+       - X
+       - X */
     for (let i = 0; i < 47; i++) {
-        if (squares[i].style.background === squares[i + width - 1].style.background && squares[i].style.background === squares[i + width * 2 - 1].style.background) {
-            if (!rowEnds.includes(squares.indexOf(squares[i - 1]))) {
-                hints.push(squares.indexOf(squares[i]))
-            }
-        } else if (squares[i].style.background === squares[i + width + 1].style.background && squares[i].style.background === squares[i + width * 2 + 1].style.background) {
-            if (!rowEnds.includes(squares.indexOf(squares[i - 1]))) {
-                hints.push(squares.indexOf(squares[i]))
-            }
+        if (squares[i].style.background === squares[i + width + 1].style.background && squares[i].style.background === squares[i + width * 2 + 1].style.background && !rowStarts.includes(squares.indexOf(squares[i + 1]))) {
+            hints.push(squares.indexOf(squares[i]))
         }
     }
 
+    /* X -
+       X -
+       - X */
     for (let i = 63; i > 16; i--) {
-        if (squares[i].style.background === squares[i - width - 1].style.background && squares[i].style.background === squares[i - width * 2 - 1].style.background) {
-            if (!rowEnds.includes(squares.indexOf(squares[i - 1]))) {
-                hints.push(squares.indexOf(squares[i]))
-            }
-        } else if (squares[i].style.background === squares[i - width + 1].style.background && squares[i].style.background === squares[i - width * 2 + 1].style.background) {
-            if (!rowEnds.includes(squares.indexOf(squares[i + 1]))) {
-                hints.push(squares.indexOf(squares[i]))
-            }
+        if (squares[i].style.background === squares[i - width - 1].style.background && squares[i].style.background === squares[i - width * 2 - 1].style.background && !rowEnds.includes(squares.indexOf(squares[i - 1]))) {
+            hints.push(squares.indexOf(squares[i]))
         }
     }
 
-    for (let i = 9; i < 55; i++) {
-        if (squares[i].style.background === squares[i - width - 1].style.background && squares[i].style.background === squares[i + width - 1].style.background) {
-            if (!rowEnds.includes(squares.indexOf(squares[i - 1]))) {
-                hints.push(squares.indexOf(squares[i]));
-            }
-        } else if (squares[i].style.background === squares[i - width + 1].style.background && squares[i].style.background === squares[i + width + 1].style.background) {
-            if (!rowStarts.includes(squares.indexOf(squares[i + 1]))) {
-                hints.push(squares.indexOf(squares[i]))
-            }
-        } else if (!rowEnds.includes(squares.indexOf(squares[i - 1])) && !rowStarts.includes(squares.indexOf(squares[i + 1]))) {
-            if (squares[i].style.background === squares[i - width - 1].style.background && squares[i].style.background === squares[i - width + 1].style.background) {
-                hints.push(squares.indexOf(squares[i]))
-            } else if (squares[i].style.background === squares[i + width - 1].style.background && squares[i].style.background === squares[i + width + 1].style.background) {
-                hints.push(squares.indexOf(squares[i]))
-            }
+    /* - X
+       - X
+       X - */
+    for (let i = 62; i > 15; i--) {
+        if (squares[i].style.background === squares[i - width + 1].style.background && squares[i].style.background === squares[i - width * 2 + 1].style.background && !rowStarts.includes(squares.indexOf(squares[i + 1]))) {
+            hints.push(squares.indexOf(squares[i]))
         }
+    }
 
+    /* X -
+       - X
+       X - */
+    for (let i = 9; i < 56; i++) {
+        if (squares[i].style.background === squares[i - width - 1].style.background && squares[i].style.background === squares[i + width - 1].style.background && !rowEnds.includes(squares.indexOf(squares[i - 1]))) {
+            hints.push(squares.indexOf(squares[i]));
+        }
+    }
+
+    /* - X
+       X -
+       - X */
+    for (let i = 8; i < 55; i++) {
+        if (squares[i].style.background === squares[i - width + 1].style.background && squares[i].style.background === squares[i + width + 1].style.background && !rowEnds.includes(squares.indexOf(squares[i - 1]))) {
+            hints.push(squares.indexOf(squares[i]));
+        }
+    }
+
+    /* - X X
+       X - - */
+    for (let i = 8; i < 62; i++) {
+        if (squares[i].style.background === squares[i - width + 1].style.background && squares[i].style.background === squares[i - width + 2].style.background && !rowStarts.includes(squares.indexOf(squares[i + 1])) && !rowStarts.includes(squares.indexOf(squares[i + 2]))) {
+            hints.push(squares.indexOf(squares[i]));
+        }
+    }
+
+    /* X - X
+       - X - */
+    for (let i = 9; i < 63; i++) {
+        if (squares[i].style.background === squares[i - width - 1].style.background && squares[i].style.background === squares[i - width + 1].style.background && !rowEnds.includes(squares.indexOf(squares[i - 1])) && !rowStarts.includes(squares.indexOf(squares[i + 1]))) {
+            hints.push(squares.indexOf(squares[i]))
+        }
+    }
+
+    /* X X -
+       - - X */
+
+    for (let i = 10; i < 64; i++) {
+        if (squares[i].style.background === squares[i - width - 1].style.background && squares[i].style.background === squares[i - width - 2].style.background && !rowEnds.includes(squares.indexOf(squares[i - 1])) && !rowEnds.includes(squares.indexOf(squares[i - 2]))) {
+            hints.push(squares.indexOf(squares[i]))
+        }
+    }
+
+    /* X - -
+       - X X */
+    for (let i = 0; i < 54; i++) {
+        if (squares[i].style.background === squares[i + width + 1].style.background && squares[i].style.background === squares[i + width + 2].style.background && !rowStarts.includes(squares.indexOf(squares[i + 1])) && !rowStarts.includes(squares.indexOf(squares[i + 2]))) {
+            hints.push(squares.indexOf(squares[i]))
+        }
+    }
+
+    /* - X -
+       X - X */
+    for (let i = 1; i < 55; i++) {
+        if (squares[i].style.background === squares[i + width - 1].style.background && squares[i].style.background === squares[i + width + 1].style.background && !rowEnds.includes(squares.indexOf(squares[i - 1])) && !rowStarts.includes(squares.indexOf(squares[i + 1]))) {
+            hints.push(squares.indexOf(squares[i]))
+        }
+    }
+
+    /* - - X
+       X X - */
+    for (let i = 2; i < 56; i++) {
+        if (squares[i].style.background === squares[i + width - 1].style.background && squares[i].style.background === squares[i + width - 2].style.background && !rowEnds.includes(squares.indexOf(squares[i - 1])) && !rowEnds.includes(squares.indexOf(squares[i - 2]))) {
+            hints.push(squares.indexOf(squares[i]))
+        }
     }
 
     console.log(hints);
