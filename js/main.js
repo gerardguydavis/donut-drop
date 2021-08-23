@@ -1,4 +1,5 @@
 const grid = document.querySelector('.grid');
+const donut = document.querySelector('.donut');
 const scoreDisplay = document.getElementById('score');
 const highScoreText = document.getElementById('highscore')
 const highScoreDisplay = document.getElementById('highscore-display')
@@ -243,17 +244,19 @@ function dragDrop() {
 
 //Drop New Sweets
 function moveDown() {
-    for (i = 0; i < 56; i++) {
-        if (squares[i + width].style.background === '') {
-            squares[i + width].style.background = squares[i].style.background
-            squares[i + width].style.top = '70px';
-            squares[i].style.background = ''
-        }
-        const firstRow = [0, 1, 2, 3, 4, 5, 6, 7]
-        const isFirstRow = firstRow.includes(i)
-        if (isFirstRow && squares[i].style.background === '') {
-            let randomColor = Math.floor(Math.random() * sweetsColors.length)
-            squares[i].style.background = sweetsColors[randomColor];
+    if (!startMenu.classList.contains("slidein")) {
+        for (i = 0; i < 56; i++) {
+            if (squares[i + width].style.background === '') {
+                squares[i + width].style.background = squares[i].style.background
+                squares[i + width].style.top = '70px';
+                squares[i].style.background = ''
+            }
+            const firstRow = [0, 1, 2, 3, 4, 5, 6, 7]
+            const isFirstRow = firstRow.includes(i)
+            if (isFirstRow && squares[i].style.background === '') {
+                let randomColor = Math.floor(Math.random() * sweetsColors.length)
+                squares[i].style.background = sweetsColors[randomColor];
+            }
         }
     }
 }
@@ -427,6 +430,9 @@ function timesUp() {
         if (startMenu.classList.contains("slideout")) {
             startMenu.classList.remove("slideout");
             startMenu.classList.add("slidein");
+        }
+        for (let i = 0; i < 64; i++) {
+            squares[i].style.background = '';
         }
     }
 }
