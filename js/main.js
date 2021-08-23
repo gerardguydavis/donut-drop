@@ -5,7 +5,7 @@ const highScoreText = document.getElementById('highscore')
 const highScoreDisplay = document.getElementById('highscore-display')
 const width = 8;
 const squares = [];
-const startingMinutes = 1;
+const startingMinutes = .1;
 const timer = document.getElementById('timer');
 const timerDisplay = document.getElementById('timer-display');
 const startButton = document.getElementById('start-button');
@@ -51,14 +51,6 @@ let colorDragged;
 let colorSwapped;
 let squareIdDragged;
 let squareIdSwapped;
-
-squares.forEach(square => square.addEventListener('dragstart', dragStart));
-squares.forEach(square => square.addEventListener('dragend', dragEnd));
-squares.forEach(square => square.addEventListener('dragover', dragOver));
-squares.forEach(square => square.addEventListener('dragenter', dragEnter));
-squares.forEach(square => square.addEventListener('dragleave', dragLeave));
-squares.forEach(square => square.addEventListener('drop', dragDrop));
-
 
 
 /*I DON'T THINK THIS WORKS:
@@ -421,6 +413,16 @@ function countdown() {
 function timesUp() {
     if (time < 1) {
         removeHint();
+        squares.forEach(square => square.removeEventListener('dragstart', dragStart));
+        squares.forEach(square => square.removeEventListener('dragend', dragEnd));
+        squares.forEach(square => square.removeEventListener('dragover', dragOver));
+        squares.forEach(square => square.removeEventListener('dragenter', dragEnter));
+        squares.forEach(square => square.removeEventListener('dragleave', dragLeave));
+        squares.forEach(square => square.removeEventListener('drop', dragDrop));
+        squares.forEach(square => square.addEventListener('mouseover', function () {
+            square.style.transform = "scale(1)";
+            square.style.cursor = "initial";
+        }));
         time = 0;
         timer.innerHTML = `0:00`;
         if (replay === true) {
@@ -431,9 +433,7 @@ function timesUp() {
             startMenu.classList.remove("slideout");
             startMenu.classList.add("slidein");
         }
-        for (let i = 0; i < 64; i++) {
-            squares[i].style.background = '';
-        }
+
     }
 }
 
@@ -442,6 +442,20 @@ function timesUp() {
 
 function startGame() {
     replay = true;
+    squares.forEach(square => square.addEventListener('dragstart', dragStart));
+    squares.forEach(square => square.addEventListener('dragend', dragEnd));
+    squares.forEach(square => square.addEventListener('dragover', dragOver));
+    squares.forEach(square => square.addEventListener('dragenter', dragEnter));
+    squares.forEach(square => square.addEventListener('dragleave', dragLeave));
+    squares.forEach(square => square.addEventListener('drop', dragDrop));
+    squares.forEach(square => square.addEventListener('mouseover', function () {
+        square.style.transform = "scale(1.1)";
+        square.style.cursor = "pointer";
+    }));
+    squares.forEach(square => square.addEventListener('mouseout', function () {
+        square.style.transform = "scale(1)";
+        square.style.cursor = "initial";
+    }));
     randomize();
     removeHint();
     timerDisplay.classList.remove("hide");

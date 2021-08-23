@@ -42,7 +42,6 @@ body {
   transition: 0.2s;
 }
 .donut:hover {
-  transform: scale(1.1);
   transition: 0.2s;
 }
 
