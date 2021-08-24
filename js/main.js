@@ -236,19 +236,17 @@ function dragDrop() {
 
 //Drop New Sweets
 function moveDown() {
-    if (!startMenu.classList.contains("slidein")) {
-        for (i = 0; i < 56; i++) {
-            if (squares[i + width].style.background === '') {
-                squares[i + width].style.background = squares[i].style.background
-                squares[i + width].style.top = '70px';
-                squares[i].style.background = ''
-            }
-            const firstRow = [0, 1, 2, 3, 4, 5, 6, 7]
-            const isFirstRow = firstRow.includes(i)
-            if (isFirstRow && squares[i].style.background === '') {
-                let randomColor = Math.floor(Math.random() * sweetsColors.length)
-                squares[i].style.background = sweetsColors[randomColor];
-            }
+    for (i = 0; i < 56; i++) {
+        if (squares[i + width].style.background === '') {
+            squares[i + width].style.background = squares[i].style.background
+            squares[i + width].style.top = '70px';
+            squares[i].style.background = ''
+        }
+        const firstRow = [0, 1, 2, 3, 4, 5, 6, 7]
+        const isFirstRow = firstRow.includes(i)
+        if (isFirstRow && squares[i].style.background === '') {
+            let randomColor = Math.floor(Math.random() * sweetsColors.length)
+            squares[i].style.background = sweetsColors[randomColor];
         }
     }
 }
@@ -572,7 +570,7 @@ function getHint() {
        X - 
        X - */
     for (let i = 1; i < 48; i++) {
-        if (squares[i].style.background === squares[i + width - 1].style.background && squares[i].style.background === squares[i + width * 2 - 1].style.background && !rowEnds.includes(squares.indexOf(squares[i - 1]))) {
+        if (squares[i].style.background === squares[i + width - 1].style.background && squares[i].style.background === squares[i + width * 2 - 1].style.background && !rowStarts.includes(squares.indexOf(squares[i]))) {
             hints.push(squares.indexOf(squares[i]))
         }
     }
@@ -581,7 +579,7 @@ function getHint() {
        - X
        - X */
     for (let i = 0; i < 47; i++) {
-        if (squares[i].style.background === squares[i + width + 1].style.background && squares[i].style.background === squares[i + width * 2 + 1].style.background && !rowStarts.includes(squares.indexOf(squares[i + 1]))) {
+        if (squares[i].style.background === squares[i + width + 1].style.background && squares[i].style.background === squares[i + width * 2 + 1].style.background && !rowEnds.includes(squares.indexOf(squares[i]))) {
             hints.push(squares.indexOf(squares[i]))
         }
     }
@@ -590,7 +588,7 @@ function getHint() {
        X -
        - X */
     for (let i = 63; i > 16; i--) {
-        if (squares[i].style.background === squares[i - width - 1].style.background && squares[i].style.background === squares[i - width * 2 - 1].style.background && !rowEnds.includes(squares.indexOf(squares[i - 1]))) {
+        if (squares[i].style.background === squares[i - width - 1].style.background && squares[i].style.background === squares[i - width * 2 - 1].style.background && !rowStarts.includes(squares.indexOf(squares[i]))) {
             hints.push(squares.indexOf(squares[i]))
         }
     }
@@ -599,7 +597,7 @@ function getHint() {
        - X
        X - */
     for (let i = 62; i > 15; i--) {
-        if (squares[i].style.background === squares[i - width + 1].style.background && squares[i].style.background === squares[i - width * 2 + 1].style.background && !rowStarts.includes(squares.indexOf(squares[i + 1]))) {
+        if (squares[i].style.background === squares[i - width + 1].style.background && squares[i].style.background === squares[i - width * 2 + 1].style.background && !rowEnds.includes(squares.indexOf(squares[i]))) {
             hints.push(squares.indexOf(squares[i]))
         }
     }
@@ -608,7 +606,7 @@ function getHint() {
        - X
        X - */
     for (let i = 9; i < 56; i++) {
-        if (squares[i].style.background === squares[i - width - 1].style.background && squares[i].style.background === squares[i + width - 1].style.background && !rowEnds.includes(squares.indexOf(squares[i - 1]))) {
+        if (squares[i].style.background === squares[i - width - 1].style.background && squares[i].style.background === squares[i + width - 1].style.background && !rowStarts.includes(squares.indexOf(squares[i]))) {
             hints.push(squares.indexOf(squares[i]));
         }
     }
@@ -617,7 +615,7 @@ function getHint() {
        X -
        - X */
     for (let i = 8; i < 55; i++) {
-        if (squares[i].style.background === squares[i - width + 1].style.background && squares[i].style.background === squares[i + width + 1].style.background && !rowEnds.includes(squares.indexOf(squares[i - 1]))) {
+        if (squares[i].style.background === squares[i - width + 1].style.background && squares[i].style.background === squares[i + width + 1].style.background && !rowEnds.includes(squares.indexOf(squares[i]))) {
             hints.push(squares.indexOf(squares[i]));
         }
     }
