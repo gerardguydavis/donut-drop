@@ -52,64 +52,6 @@ let colorSwapped;
 let squareIdDragged;
 let squareIdSwapped;
 
-
-/*I DON'T THINK THIS WORKS:
-
-function moveLeft() {
-    if (squareIdSwapped === (squareIdDragged - 1)) {
-        squares[squareIdDragged].classList.add("move-left");
-        squares[squareIdSwapped].classList.add("move-right");
-        setTimeout(function () {
-            squares[squareIdSwapped].classList.remove("move-left");
-            squares[squareIdDragged].classList.remove("move-right");
-            squareIdSwapped = null
-        }, 500);
-    }
-}
-
-function moveRight() {
-    if (squareIdSwapped === (squareIdDragged + 1)) {
-        squares[squareIdDragged].classList.add("move-right");
-        squares[squareIdSwapped].classList.add("move-left");
-        setTimeout(function () {
-            squares[squareIdSwapped].classList.remove("move-right");
-            squares[squareIdDragged].classList.remove("move-left");
-            squareIdSwapped = null
-        }, 500);
-    }
-}
-
-function moveUp() {
-    if (squareIdSwapped === (squareIdDragged - width)) {
-        squares[squareIdDragged].classList.add("move-up");
-        squares[squareIdSwapped].classList.add("move-down");
-        setTimeout(function () {
-            squares[squareIdDragged].classList.remove("move-up");
-            squares[squareIdSwapped].classList.remove("move-down");
-            squareIdSwapped = null
-        }, 500);
-    }
-}
-
-function moveDown() {
-    if (squareIdSwapped === (squareIdDragged + width)) {
-        squares[squareIdDragged].classList.add("move-down");
-        squares[squareIdSwapped].classList.add("move-up");
-        setTimeout(function () {
-            squares[squareIdDragged].classList.remove("move-down");
-            squares[squareIdSwapped].classList.remove("move-up");
-            squareIdSwapped = null
-        }, 500);
-    }
-}
-
-function checkSwap() {
-    moveLeft();
-    moveRight();
-    moveUp();
-    moveDown();
-}*/
-
 function dragStart() {
     colorDragged = this.style.background;
     squareIdDragged = parseInt(this.id);
